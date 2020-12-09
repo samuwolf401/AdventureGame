@@ -694,15 +694,20 @@ namespace AdventureGame
             winLabel.Text = $"{wins}";
             lossLabel.Text = $"{losses}";
             scoreLabel.Text = $"{score}";
-            if (score == 10)
+            if (score >= 10)
             {
-                headerLabel.Text = $"You are the champion you won with {wins} wins!";
+                outputLabel.Text = $"You are the champion you won with {wins} wins!";
+                this.Text = "Champion!";
+                Refresh();
+                Thread.Sleep(1000);
             }
-            else if (score == -10)
+            else if (score <= -10)
             {
-                headerLabel.Text = $"You are at this...\nYou are so bad I'm going to leave...";
+                outputLabel.Text = $"You are bad at this...\nYou are so bad I'm going to leave...";
+                imageBox.BackgroundImage = Properties.Resources.black;
                 Refresh();
                 Thread.Sleep(2500);
+                Application.Exit();
             }
             #endregion
         }
