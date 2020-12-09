@@ -11,15 +11,18 @@ using System.Threading;
 
 namespace AdventureGame
 {
-    public partial class AdventureGame : Form
+    public partial class adventureGame : Form
     {
         // Set up Random generator, and variable
         int page = 0;
         int randomValue;
-        
+        int wins = 0;
+        int losses = 0;
+        int score = 0;
+
         Random randGen = new Random();
 
-        public AdventureGame()
+        public adventureGame()
         {
             InitializeComponent();
         }
@@ -476,6 +479,7 @@ namespace AdventureGame
                     blueLabel.Text = $"";
                     greenLabel.Text = $"";
                     imageBox.BackgroundImage = Properties.Resources.booth;
+                    wins++;
                     break;
                 case 11:
                     outputLabel.Text = $"He dosen't belive you. knocks you out.\nYou lost...";
@@ -483,6 +487,7 @@ namespace AdventureGame
                     blueLabel.Text = $"";
                     greenLabel.Text = $"";
                     imageBox.BackgroundImage = Properties.Resources.booth;
+                    losses++;
                     break;
                 case 12:
                     outputLabel.Text = $"The scientist find you and knock you out.\nYou lost...";
@@ -490,6 +495,7 @@ namespace AdventureGame
                     blueLabel.Text = $"";
                     greenLabel.Text = $"";
                     imageBox.BackgroundImage = Properties.Resources.lab;
+                    losses++;
                     break;
                 case 13:
                     outputLabel.Text = $"You find a lever on the forest path";
@@ -518,6 +524,7 @@ namespace AdventureGame
                     blueLabel.Text = $"";
                     greenLabel.Text = $"";
                     imageBox.BackgroundImage = Properties.Resources.fence;
+                    wins++;
                     break;
                 case 17:
                     outputLabel.Text = $"You grab the edge. A man offers his hand.";
@@ -532,6 +539,7 @@ namespace AdventureGame
                     blueLabel.Text = $"";
                     greenLabel.Text = $"";
                     imageBox.BackgroundImage = Properties.Resources.river;
+                    losses++;
                     break;
                 case 19:
                     outputLabel.Text = $"You land in a river and are taken down stream.\nYou wake up on a small beach in a lake. There is a canoe and a path";
@@ -560,6 +568,7 @@ namespace AdventureGame
                     blueLabel.Text = $"";
                     greenLabel.Text = $"";
                     imageBox.BackgroundImage = Properties.Resources.cave;
+                    losses++;
                     break;
                 case 23:
                     outputLabel.Text = $"You find a fence with missing barbed wire.\nYou climb it and get over the fence.\nYou escaped!!!";
@@ -567,6 +576,7 @@ namespace AdventureGame
                     blueLabel.Text = $"";
                     greenLabel.Text = $"";
                     imageBox.BackgroundImage = Properties.Resources.fence;
+                    wins++;
                     break;
                 case 24:
                     outputLabel.Text = $"There is a sewer system.";
@@ -602,6 +612,7 @@ namespace AdventureGame
                     blueLabel.Text = $"";
                     greenLabel.Text = $"";
                     imageBox.BackgroundImage = Properties.Resources.sewer_opening;
+                    wins++;
                     break;
                 case 29:
                     outputLabel.Text = $"There is a path and a road.";
@@ -616,6 +627,7 @@ namespace AdventureGame
                     blueLabel.Text = $"";
                     greenLabel.Text = $"";
                     imageBox.BackgroundImage = Properties.Resources.sewer_opening;
+                    wins++;
                     break;
                 case 31:
                     outputLabel.Text = $"You grabed the edge and made it back up, but there is a gaurd waiting there.\nYou lost...";
@@ -623,6 +635,7 @@ namespace AdventureGame
                     blueLabel.Text = $"";
                     greenLabel.Text = $"";
                     imageBox.BackgroundImage = Properties.Resources.sewer_opening;
+                    losses++;
                     break;
                 case 32:
                     outputLabel.Text = $"You go down the path, a guard spots and shoots you.\nYou lost...";
@@ -630,6 +643,7 @@ namespace AdventureGame
                     blueLabel.Text = $"";
                     greenLabel.Text = $"";
                     imageBox.BackgroundImage = Properties.Resources.forest_path;
+                    losses++;
                     break;
                 case 33:
                     outputLabel.Text = $"An ancient evil posses your body and helps you escape.\nYou(and the evil force) Escaped!!!";
@@ -637,13 +651,15 @@ namespace AdventureGame
                     blueLabel.Text = $"";
                     greenLabel.Text = $"";
                     imageBox.BackgroundImage = Properties.Resources.little_forest_hut;
+                    wins++;
                     break;
                 case 34:
-                    outputLabel.Text = $"The People in the cabin help you.\nThen they eat you.\nYoulost...";
+                    outputLabel.Text = $"The People in the cabin help you.\nThen they eat you.\nYou lost...";
                     redLabel.Text = $"Continue";
                     blueLabel.Text = $"";
                     greenLabel.Text = $"";
                     imageBox.BackgroundImage = Properties.Resources.cabin;
+                    losses++;
                     break;
                 case 35:
                     outputLabel.Text = $"He didn't even flinch. He then shoots you.\nYou lost...";
@@ -651,6 +667,7 @@ namespace AdventureGame
                     blueLabel.Text = $"";
                     greenLabel.Text = $"";
                     imageBox.BackgroundImage = Properties.Resources.booth;
+                    losses++;
                     break;
                 case 36:
                     outputLabel.Text = $"You staved to death.\nYou lost...";
@@ -658,6 +675,7 @@ namespace AdventureGame
                     blueLabel.Text = $"";
                     greenLabel.Text = $"";
                     imageBox.BackgroundImage = Properties.Resources.vent;
+                    losses++;
                     break;
                 case 37:
                     outputLabel.Text = $"An Aligator eats you.\nYou lost...";
@@ -665,10 +683,28 @@ namespace AdventureGame
                     blueLabel.Text = $"";
                     greenLabel.Text = $"";
                     imageBox.BackgroundImage = Properties.Resources.gator;
+                    losses++;
                     break;
                 default:
                     break;
+
             }
+            #region //score calculator
+            score = (wins - losses);
+            winLabel.Text = $"{wins}";
+            lossLabel.Text = $"{losses}";
+            scoreLabel.Text = $"{score}";
+            if (score == 10)
+            {
+                headerLabel.Text = $"You are the champion you won with {wins} wins!";
+            }
+            else if (score == -10)
+            {
+                headerLabel.Text = $"You are at this...\nYou are so bad I'm going to leave...";
+                Refresh();
+                Thread.Sleep(2500);
+            }
+            #endregion
         }
     }
 }
